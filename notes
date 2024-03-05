@@ -1,0 +1,23 @@
+Steps to set up cdk
+    -> download and install aws cli downlaod link: https://aws.amazon.com/cli/
+    -> configure aws cli: aws configure
+    # -> install pip
+    # python -m ensurepip --upgrade
+    # python -m pip install --upgrade pip
+    # python -m pip install --upgrade virtualenv
+    -> install cdk: pip install aws-cdk.core or npm install -g aws-cdk
+    -> ckd bootstrap
+When you run `cdk bootstrap`, several things happen in the backend to prepare your AWS environment for deploying AWS CDK stacks:
+
+1. **Bootstrap Stack Creation**: `cdk bootstrap` creates a CloudFormation stack in your AWS account called `CDKToolkit`. This stack is created in the default region specified in your AWS CLI configuration.
+
+2. **S3 Bucket Creation**: Within the `CDKToolkit` stack, a new Amazon S3 bucket is created. This S3 bucket is used to store assets (such as Docker images, Lambda function code, and other artifacts) that are uploaded during the deployment process.
+
+3. **CloudFormation Template Deployment**: The CloudFormation template required for bootstrapping the environment is deployed to the `CDKToolkit` stack. This template sets up the necessary IAM roles and permissions required for CDK to manage your stacks, as well as other resources that facilitate CDK operations.
+
+4. **Asset Storage Configuration**: CDK configures the S3 bucket created in step 2 as the asset storage location for your CDK stacks. This means that when you deploy a CDK stack that includes assets, those assets will be uploaded to this S3 bucket for use during deployment.
+
+5. **Optional Additional Resources**: Depending on your account setup and CDK version, additional resources or configurations may be performed during bootstrapping. For example, if you're using AWS CodePipeline or AWS CodeBuild with CDK, additional resources related to these services may be set up during bootstrapping.
+
+In summary, `cdk bootstrap` sets up the necessary infrastructure in your AWS account to support CDK deployments. It creates a CloudFormation stack, provisions an S3 bucket for asset storage, deploys a CloudFormation template to configure the environment, and performs other setup tasks as needed. This ensures that your AWS account is ready to deploy CDK stacks effectively.
+    -> 
